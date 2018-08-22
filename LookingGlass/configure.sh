@@ -251,13 +251,13 @@ function setup()
   local U=
 
   # User input
-  read -e -p "Enter your website name (Header/Logo) [${SITE}]: " S
-  read -e -p "Enter the public URL to this LG (including http://) [${URL}]: " U
-  read -e -p "Enter the servers location [${LOCATION}]: " LOC
-  read -e -p "Enter the test IPv4 address [${IPV4}]: " IP4
-  read -e -p "Enter the test IPv6 address (Re-enter everytime this script is run) [${IPV6}]: " IP6
-  read -e -p "Enter the size of test files in MB (Example: 25MB 50MB 100MB) [${TEST[*]}]: " T
-  read -e -p "Do you wish to enable rate limiting of network commands? (y/n): " RATE
+  read -e -p "輸入你的站名 (Header/Logo) [${SITE}]: " S
+  read -e -p "輸入你欲設定的 LookingGlass 網址 (請包含 http://) [${URL}]: " U
+  read -e -p "輸入你的主機位置 [${LOCATION}]: " LOC
+  read -e -p "輸入你的 IPv4 位置 [${IPV4}]: " IP4
+  read -e -p "輸入你的 IPv6 位置 (Re-enter everytime this script is run) [${IPV6}]: " IP6
+  read -e -p "輸入測試檔案的大小 (例如： 25MB 50MB 100MB) [${TEST[*]}]: " T
+  read -e -p "你希望啟用指令是數限制？ (y/n): " RATE
 
   # Check local vars aren't empty; Set new values
   if [[ -n $IP4 ]]; then
