@@ -3,14 +3,16 @@
 if (file_exists('LookingGlass/Config.php')) {
   require 'LookingGlass/Config.php';
   if (!isset($ipv4, $ipv6, $siteName, $siteUrl, $serverLocation, $testFiles, $theme)) {
-    exit('Configuration variable/s missing. Please run configure.sh');
+    exit('Configuration variable/s missing');
   }
 } else {
-  exit('Config.php does not exist. Please run configure.sh');
+  exit('Config.php does not exist');
 }
 
 function getIp() {
-  if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARTDED_FOR'] != '') {
+  if (isset($_SERVER['HTTP_X_REAL_IP']) && $_SERVER['HTTP_X_REAL_IP'] != '') {
+    $ip_address = $_SERVER['HTTP_X_REAL_IP'];
+  } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != '') {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   } else {
     $ip_address = $_SERVER['REMOTE_ADDR'];
@@ -60,7 +62,7 @@ function getIp() {
 							<p>主機位置：<strong><?php echo $serverLocation; ?></strong></p>
 							<p>IPv4 位置：<?php echo $ipv4; ?></p>
 							<?php if (!empty($ipv6)) { echo '<p>IPv6 位置: '; echo $ipv6; echo '</p>'; } ?>
-							<p>你的 IP 位置：<strong><a href="#tests" id="userip"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></p>
+							<p>你的 IP 位置：<strong><a href="#tests" id="userip"><?php echo getIp(); ?></a></strong></p>
 						</div>
 					</div>
 				</div>
@@ -72,7 +74,7 @@ function getIp() {
 							<?php
 								foreach ($testFiles as $val)
 								{
-									echo "<a href=\"//{$siteUrl}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
+									echo "<a href=\"{$siteUrl}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 								}
 							?>
 						</div>

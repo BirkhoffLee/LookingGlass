@@ -12,8 +12,18 @@ $ git clone https://github.com/BirkhoffLee/LookingGlass
 $ cd LookingGlass
 $ cp Config.php.example Config.php
 $ vim Config.php # edit the config at your will
+$ shred --exact --iterations=1 --size="25MB" - > "25MB.test"
+$ shred --exact --iterations=1 --size="50MB" - > "50MB.test"
+$ shred --exact --iterations=1 --size="100MB" - > "100MB.test"
 $ docker build -t lookingglass .
-$ docker run -p 80:80 -v $(pwd)/Config.php:/var/www/html/LookingGlass/Config.php lookingglass
+$ docker run \
+    -p 80:80 \
+    -v $(pwd)/Config.php:/var/www/html/LookingGlass/Config.php \
+    -v $(pwd)/25MB.test:/var/www/html/25MB.test:ro \
+    -v $(pwd)/50MB.test:/var/www/html/50MB.test:ro \
+    -v $(pwd)/100MB.test:/var/www/html/100MB.test:ro \
+    ...
+    lookingglass
 ```
 
 ## Features
