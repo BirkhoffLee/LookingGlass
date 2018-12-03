@@ -9,15 +9,10 @@ if (file_exists('LookingGlass/Config.php')) {
   exit('Config.php does not exist');
 }
 
-function getIp() {
-  if (isset($_SERVER['HTTP_X_REAL_IP']) && $_SERVER['HTTP_X_REAL_IP'] != '') {
-    $ip_address = $_SERVER['HTTP_X_REAL_IP'];
-  } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != '') {
-    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  } else {
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-  }
-  return $ip_address;
+if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+  $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+} else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+  $_SERVER['REMOTE_ADDR'] = array_values(array_filter(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])))[0];
 }
 ?>
 <!DOCTYPE html>
@@ -62,7 +57,7 @@ function getIp() {
 							<p>主機位置：<strong><?php echo $serverLocation; ?></strong></p>
 							<p>IPv4 位置：<?php echo $ipv4; ?></p>
 							<?php if (!empty($ipv6)) { echo '<p>IPv6 位置: '; echo $ipv6; echo '</p>'; } ?>
-							<p>你的 IP 位置：<strong><a href="#tests" id="userip"><?php echo getIp(); ?></a></strong></p>
+							<p>你的 IP 位置：<strong><a href="#tests" id="userip"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></p>
 						</div>
 					</div>
 				</div>
