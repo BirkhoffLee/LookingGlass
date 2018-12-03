@@ -68,24 +68,13 @@ function getIp() {
 					<div class="panel panel-default">
 						<div class="panel-heading">網路測試檔案</div>
 						<div class="panel-body">
-							<h4>IPv4 下載測試</h4>
+							<h4>下載測試</h4>
 							<?php
 								foreach ($testFiles as $val)
 								{
-									echo "<a href=\"//{$ipv4}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
+									echo "<a href=\"//{$siteUrl}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 								}
 							?>
-
-							<?php if (!empty($ipv6))
-								{
-									echo "<h4>IPv6 下載測試</h4>";
-									foreach ($testFiles as $val)
-									{
-										echo "<a href=\"//[{$ipv6}]/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
-									}
-								}
-							?>
-
 						</div>
 					</div>
 				</div>
